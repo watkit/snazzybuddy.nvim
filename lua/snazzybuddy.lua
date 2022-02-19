@@ -265,7 +265,7 @@ function M.load()
     Group.new('MatchParen', c.cyan, c.none, b) -- The character under the cursor or just before it, if it is a paired bracket, and its match.
     Group.new('ModeMsg', c.green, c.none, no) -- 'showmode' message (e.g., '-- INSERT --')
     Group.new('MoreMsg', g.ModeMsg, g.ModeMsg, g.ModeMsg) -- more-prompt
-    Group.new('NonText', c.fg1, c.none, no) -- '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., '>' displayed when a double-wide character doesn't fit at the end of the line).
+    Group.new('NonText', c.darkgrey, c.none, no) -- '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., '>' displayed when a double-wide character doesn't fit at the end of the line).
     Group.new('Normal', c.fg1, c.bg, no) -- normal text
     Group.new('Pmenu', c.fg1, c.selection, no) -- Popup menu: normal item.
     Group.new('PmenuSel', c.accent, c.disabled, no) -- Popup menu: selected item.
@@ -967,7 +967,8 @@ function M.load()
     Group.new("mailEmail", c.blue, c.none, no)
 
     -- indent-blankline tweaks
-    Group.new("Whitespace", c.darkgrey, c.none, no) -- guifg=#272727 gui=nocombine
+    Group.new("Whitespace", c.darkgrey, c.none, no)
+
     -- Group overrides for light theme
     if get_current_mode() == 'light' then
         -- TODO: incsearch
