@@ -19,7 +19,8 @@ local no = s.NONE
 
 local COLORS = {
     dark = {
-        bg = '#282a36',
+        -- bg = '#282a36',
+        bg = '#15151C',
         fg = '#eff0eb',
         red = '#ff5c57',
         yellow = '#f3f99d',
@@ -29,7 +30,8 @@ local COLORS = {
         purple = '#ff6ac1',
         orange = '#ff9f43',
         brown = '#b2643c',
-        pink = '#FF5370'
+        pink = '#FF5370',
+        darkgrey = '#404040',
     },
     light = {
         bg = '#eff0eb',
@@ -94,6 +96,7 @@ function M.load()
     Color.new('purple', get_color('purple'))
     Color.new('orange', get_color('orange'))
     Color.new('brown', get_color('brown'))
+    Color.new('darkgrey', get_color('darkgrey'))
     Color.new('comments', '#78787e')
     Color.new('error', get_color('red'))
     Color.new('pink', get_color('pink'))
@@ -963,6 +966,8 @@ function M.load()
     Group.new("mailURL", c.blue, c.none, no)
     Group.new("mailEmail", c.blue, c.none, no)
 
+    -- indent-blankline tweaks
+    Group.new("Whitespace", c.darkgrey, c.none, no) -- guifg=#272727 gui=nocombine
     -- Group overrides for light theme
     if get_current_mode() == 'light' then
         -- TODO: incsearch
