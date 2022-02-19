@@ -1,8 +1,8 @@
 -- Name:         Snazzybuddy
 -- Description:  Light and dark theme inspired by hyper-snazzy
 -- Author:       bbenzikry
--- Maintainer:   bbenzikry
--- Website:      https://github.com/bbenzikry/snazzybuddy.nvim
+-- Maintainer:   watkit
+-- Website:      https://github.com/watkit/snazzybuddy.nvim
 -- License:      MIT
 local Color, colors, Group, groups, styles = require('colorbuddy').setup()
 local g = require('colorbuddy.group').groups
