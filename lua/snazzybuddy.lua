@@ -19,8 +19,7 @@ local no = s.NONE
 
 local COLORS = {
     dark = {
-        -- bg = '#282a36',
-        bg = '#15151C',
+        bg = '#15151c',
         fg = '#eff0eb',
         red = '#ff5c57',
         yellow = '#f3f99d',
@@ -242,7 +241,6 @@ function M.load()
     Group.new('Todo', c.Todo, c.none, b + i) -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
     -- Highlight groups
-
     Group.new('ColorColumn', c.fg3, c.bg, no) --  used for the columns set with 'colorcolumn'
     Group.new('Conceal', c.blue, c.bg, no) -- placeholder characters substituted for concealed text (see 'conceallevel')
     Group.new('Cursor', c.bg, c.fg1, b + r) -- the character under the cursor
