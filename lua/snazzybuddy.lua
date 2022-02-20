@@ -74,6 +74,7 @@ end
 local M = {}
 function M.load()
     vim.g.colors_name = 'snazzybuddy'
+    vim.g.background = 'dark'
     local current_mode = get_current_mode()
     -- Universal colors
     Color.new('fg1', get_color('fg'))
