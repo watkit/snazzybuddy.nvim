@@ -4,18 +4,13 @@
 -- Maintainer:   watkit
 -- Website:      https://github.com/watkit/snazzybuddy.nvim
 -- License:      MIT
-local Color, colors, Group, groups, styles = require('colorbuddy').setup()
-local g = require('colorbuddy.group').groups
-local c = require('colorbuddy.color').colors
-local s = require('colorbuddy.style').styles
+local Color, c, Group, g, s = require('colorbuddy').setup()
 local b = s.bold
 local i = s.italic
 local uc = s.undercurl
 local ul = s.underline
 local r = s.reverse
 local no = s.NONE
--- local o = vim.o
--- local v = vim.g
 
 local COLORS = {
     dark = {
@@ -74,12 +69,12 @@ end
 local M = {}
 function M.load()
     vim.g.colors_name = 'snazzybuddy'
-    vim.g.background = 'dark'
     local current_mode = get_current_mode()
     -- Universal colors
     Color.new('fg1', get_color('fg'))
     Color.new('fg2', get_color('fg'))
     Color.new('fg3', '#e2e4e5')
+    Color.new('bg0', get_color('bg'))
     Color.new('disabled', '#464B5D')
     Color.new('line_numbers', '#525975')
     Color.new('selection', '#464B5D')
@@ -138,7 +133,7 @@ function M.load()
     -- Style specific colors
     if current_mode == 'dark' then
         -- Dark theme specific styling
-        Color.new('bg', get_color('bg'))
+        Color.new('bg0', get_color('bg'))
         Color.new('fg1', get_color('fg'))
         Color.new('invisibles', '#65737E')
         Color.new('comments', '#78787e')
@@ -165,7 +160,7 @@ function M.load()
         -- Color.new('Repeat')
     elseif current_mode == 'light' then
         -- Light theme specific styling
-        Color.new('bg', get_color('bg', 'light'))
+        Color.new('bg0', get_color('bg', 'light'))
         Color.new('fg1', get_color('fg', 'light'))
         Color.new('invisibles', '#E7EAEC')
         Color.new('comments', '#90A4AE')
@@ -242,9 +237,9 @@ function M.load()
     Group.new('Todo', c.Todo, c.none, b + i) -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
     -- Highlight groups
-    Group.new('ColorColumn', c.fg3, c.bg, no) --  used for the columns set with 'colorcolumn'
-    Group.new('Conceal', c.blue, c.bg, no) -- placeholder characters substituted for concealed text (see 'conceallevel')
-    Group.new('Cursor', c.bg, c.fg1, b + r) -- the character under the cursor
+    Group.new('ColorColumn', c.fg3, c.bg0, no) --  used for the columns set with 'colorcolumn'
+    Group.new('Conceal', c.blue, c.bg0, no) -- placeholder characters substituted for concealed text (see 'conceallevel')
+    Group.new('Cursor', c.bg0, c.fg1, b + r) -- the character under the cursor
     Group.new('CursorIM', c.fg1, c.none, r) -- like Cursor, but used when in IME mode
     -- Group.new('InvisibleCursor', c.red, c.red, b) -- like Cursor, but used when in IME mode
     Group.new('Directory', c.blue, c.none, b) -- directory names (and other special names in listings)
@@ -253,9 +248,9 @@ function M.load()
     Group.new('DiffDelete', c.red, c.none, no) -- diff mode: Deleted line
     Group.new('DiffText', c.blue, c.none, no) -- diff mode: Changed text within a changed line
     Group.new('EndOfBuffer', c.invisibles, c.none, no) -- filler lines (~) after the last line in the buffer
-    Group.new('ErrorMsg', c.fg1, c.bg, no) -- error messages on the command line
+    Group.new('ErrorMsg', c.fg1, c.bg0, no) -- error messages on the command line
     Group.new('VertSplit', c.selection, c.none, no) -- the column separating verti-- cally split windows
-    Group.new('Folded', c.purple, c.bg, i) -- line used for closed folds
+    Group.new('Folded', c.purple, c.bg0, i) -- line used for closed folds
     Group.new('FoldColumn', c.blue, c.none, no) -- 'foldcolumn'
     Group.new('SignColumn', c.fg1, c.none, no) -- column where signs are displayed
     Group.new('IncSearch', c.selection, c.incsearch, r + b) -- 'incsearch' highlighting; also used for the text replaced with ':s///c'
@@ -265,10 +260,10 @@ function M.load()
     Group.new('ModeMsg', c.green, c.none, no) -- 'showmode' message (e.g., '-- INSERT --')
     Group.new('MoreMsg', g.ModeMsg, g.ModeMsg, g.ModeMsg) -- more-prompt
     Group.new('NonText', c.darkgrey, c.none, no) -- '~' and '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., '>' displayed when a double-wide character doesn't fit at the end of the line).
-    Group.new('Normal', c.fg1, c.bg, no) -- normal text
+    Group.new('Normal', c.fg1, c.bg0, no) -- normal text
     Group.new('Pmenu', c.fg1, c.selection, no) -- Popup menu: normal item.
     Group.new('PmenuSel', c.accent, c.disabled, no) -- Popup menu: selected item.
-    Group.new('PmenuSbar', c.fg1, c.bg, no) -- Popup menu: scrollbar.
+    Group.new('PmenuSbar', c.fg1, c.bg0, no) -- Popup menu: scrollbar.
     Group.new('PmenuThumb', c.fg1, c.accent, no) -- Popup menu: Thumb of the scrollbar.
     Group.new('Question', c.blue, c.none, b) -- hit-enter prompt and yes/no questions
     Group.new('QuickFixLine', g.Search, g.Search, g.Search) -- Current quickfix item in the quickfix window.
@@ -279,12 +274,12 @@ function M.load()
     Group.new('SpellCap', c.blue, c.none, i + uc) -- Word that should start with a capital. This will be combined with the highlighting used otherwise.
     Group.new('SpellLocal', c.cyan, c.none, i + uc) -- Word that is recognized by the spellchecker as one that is used in another region. This will be combined with the highlighting used otherwise.
     Group.new('SpellRare', c.purple, c.none, i + uc) -- Word that is recognized by the spellchecker as one that is hardly ever used. spell This will be combined with the highlighting used otherwise.
-    Group.new('StatusLine', c.fg1, c.bg, no) -- status line of current window
+    Group.new('StatusLine', c.fg1, c.bg0, no) -- status line of current window
     Group.new('StatusLineNC', c.comments, c.selection, no) -- status lines of not-current windows Note: if this is equal to 'StatusLine' Vim will use '^^^' in the status line of the current window.
     -- Group.new('StatusLineTerm', g.StatusLine, g.StatusLine, g.StatusLine) -- status line of current :terminal window
-    Group.new('StatusLineTerm', c.bg, c.green, g.StatusLine) -- status line of current :terminal window
+    Group.new('StatusLineTerm', c.bg0, c.green, g.StatusLine) -- status line of current :terminal window
     Group.new('StatusLineTermNC', g.StatusLineNC, g.StatusLineNC, g.StatusLineNC) -- status line of non-current :terminal window
-    Group.new('TabLineFill', c.fg1, c.bg, no)
+    Group.new('TabLineFill', c.fg1, c.bg0, no)
     Group.new('TabLineSel', c.green, c.accent, no)
     Group.new('TabLine', g.TabLineFill, g.TabLineFill, g.TabLineFill)
     Group.new('Title', c.blue, c.none, b) -- titles for output from ':set all', ':autocmd' etc.
@@ -295,7 +290,7 @@ function M.load()
     Group.new('CursorColumn', c.none, c.selection, no) -- Current cursor column highlight
     Group.new('CursorLine', c.none, c.selection, no) -- Current cursor line highlight
     Group.new('ToolbarLine', c.fg1, c.disabled, no)
-    Group.new('ToolbarButton', c.fg1, c.bg, b)
+    Group.new('ToolbarButton', c.fg1, c.bg0, b)
     Group.new('NormalMode', c.accent, c.none, r)
     Group.new('InsertMode', c.green, c.none, r)
     Group.new('ReplaceMode', c.red, c.none, r)
@@ -736,10 +731,10 @@ function M.load()
 
     -- gitsigns (lewis6991/gitsigns.nvim)
     Group.new('GitSignsAdd', c.green, c.none, no)
-    Group.new('GitSignsAddNr', c.bg, c.green, no)
+    Group.new('GitSignsAddNr', c.bg0, c.green, no)
     Group.new('GitSignsAddLn', c.red, c.none, no)
     Group.new('GitSignsChange', c.orange, c.none, no)
-    Group.new('GitSignsChangeNr', c.bg, c.orange, no)
+    Group.new('GitSignsChangeNr', c.bg0, c.orange, no)
     Group.new('GitSignsChangeLn', c.orange, c.none, no)
     Group.new('GitSignsDelete', c.red, c.none, no)
     Group.new('GitSignsDeleteNr', c.fg1, c.red, no)
@@ -823,9 +818,9 @@ function M.load()
 
     -- +- Neovim Support -+
     Group.new('healthError', c.error, c.fg2)
-    Group.new('healthSuccess', c.green, c.bg)
-    Group.new('healthWarning', c.yellow, c.bg)
-    Group.new('TermCursorNC', c.fg1, c.bg)
+    Group.new('healthSuccess', c.green, c.bg0)
+    Group.new('healthWarning', c.yellow, c.bg0)
+    Group.new('TermCursorNC', c.fg1, c.bg0)
 
     -- LSP Groups ( see `:h lsp-highlight`)
     Group.new('LspDiagnosticsDefaultError', c.error, c.none) -- Base highlight for errors
@@ -850,11 +845,11 @@ function M.load()
     Group.new('LspFloatWinBorder', c.yellow, c.none)
     Group.new('LspSagaFinderSelection', c.green, c.none)
     -- Group.new('LspSagaLspFinderBorder', c.blue, c.none)
-    Group.new('LspSagaDocTruncateLine', c.bg, c.none)
-    Group.new('LspSagaShTruncateLine', c.bg, c.none)
+    Group.new('LspSagaDocTruncateLine', c.bg0, c.none)
+    Group.new('LspSagaShTruncateLine', c.bg0, c.none)
     Group.new('LspSagaCodeActionTitle', c.orange, c.none, b)
     -- Group.new('LspSagaCodeActionContent', c.green, c.none, b)
-    -- Group.new('LspSagaCodeActionTruncateLine', c.bg, c.none)
+    -- Group.new('LspSagaCodeActionTruncateLine', c.bg0, c.none)
     -- Group.new('LspSagaAutoPreview', c.orange, c.none)
     Group.new('LspSagaSignatureHelpBorder', c.green, c.none)
     Group.new('LspSagaDiagnosticBorder', c.purple, c.none)
@@ -945,8 +940,8 @@ function M.load()
     Group.new('TSStructure', g.Structure, c.none) -- This is left as an exercise for the reader.
     Group.new('TSInclude', g.Include, c.none) -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
     -- Group.new('TSAnnotation'         , c.blue_nuanced_bg , c.none) -- For C++/Dart attributes, annotations that can be attached to the code to denote some kind of meta information.
-    -- Group.new('TSText'             , c.fg              , c.bg           , b) -- For strings considered text in a markup language.
-    -- Group.new('TSStrong'             , c.fg              , c.bg           , b) -- For text to be represented with strong.
+    -- Group.new('TSText'             , c.fg              , c.bg0           , b) -- For strings considered text in a markup language.
+    -- Group.new('TSStrong'             , c.fg              , c.bg0           , b) -- For text to be represented with strong.
     -- Group.new('TSEmphasis'            , c.blue_alt          , c.none  , b) -- For text to be represented with emphasis.
     -- Group.new('TSUnderline'            , c.blue_alt          , c.none  , b) -- TSUnderline
     -- Group.new('TSTitle'              , c.cyan_nuanced    , c.none) -- Text that is part of a title.
